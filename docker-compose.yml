@@ -1,0 +1,27 @@
+memcache:
+  build: ./memcache
+
+weba:
+  build: ./apache
+  links:
+    - memcache
+
+webb:
+  build: ./apache
+  links:
+    - memcache
+
+webc:
+  build: ./apache
+  links:
+    - memcache
+
+proxy:
+  build: ./haproxy
+  links:
+    - weba
+    - webb
+    - webc
+  ports:
+    - "80:80"
+    - "443:443"
